@@ -1,0 +1,134 @@
+{% extends "base_info.html" %}
+
+{% block head %}
+<script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+{% endblock head %}
+
+{% block main_con %}
+	<div class="navbar_con">
+		<div class="navbar clearfix">
+			<div class="subnav_con fl">
+				<h1>全部商品分类</h1>	
+				<span></span>			
+				<ul class="subnav">
+					<li><a href="/goods/list/0/" class="fruit">新鲜水果</a></li>
+					<li><a href="/goods/list/1/" class="seafood">海鲜水产</a></li>
+					<li><a href="/goods/list/2/" class="meet">猪牛羊肉</a></li>
+					<li><a href="/goods/list/3/" class="egg">禽类蛋品</a></li>
+					<li><a href="/goods/list/4/" class="vegetables">新鲜蔬菜</a></li>
+					<li><a href="/goods/list/5/" class="ice">速冻食品</a></li>
+				</ul>
+			</div>
+			<ul class="navlist fl">
+				<li><a href="/goods/index/">首页</a></li>
+				<li class="interval">|</li>
+				<li><a href="">手机生鲜</a></li>
+				<li class="interval">|</li>
+				<li><a href="">抽奖</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="breadcrumb">
+		<a href="/goods/index/">全部分类</a>
+		<span>></span>
+		<a href="#">新鲜水果</a>
+	</div>
+
+	<div class="main_wrap clearfix">
+		<div class="l_wrap fl clearfix">
+			<div class="new_goods">
+				<h3>新品推荐</h3>
+				<ul>
+					{% for n in news %}
+					<li>
+						<a href="/goods/{{n.id}}/"><img src="/static/{{n.gpic}}/"></a>
+						<h4><a href="/goods/{{n.id}}/">{{n.gtitle}}</a></h4>
+						<div class="prize">￥{{n.gprice}}</div>
+					</li>
+					{% endfor %}
+					<!--<li>-->
+						<!--<a href="#"><img src="/static/images/goods/goods002.jpg"></a>-->
+						<!--<h4><a href="#">玫瑰香葡萄</a></h4>-->
+						<!--<div class="prize">￥16.80</div>-->
+					<!--</li>-->
+				</ul>
+			</div>
+		</div>
+
+		<div class="r_wrap fr clearfix">
+			<div class="sort_bar">
+				<a href="#" class="active">默认</a>
+				<a href="#">价格</a>
+				<a href="#">人气</a>
+			</div>
+
+			<ul class="goods_type_list clearfix">
+				{% for g in goods %}
+				<li id="id" value="{{g.id}}">
+					<a href="/goods/{{g.id}}/"><img src="/static/{{g.gpic}}/"></a>
+					<h4><a href="/goods/{{g.id}}/">{{g.gtitle}}</a></h4>
+					<div class="operate">
+						<span class="prize">￥{{g.gprice}}</span>
+						<span class="unit">{{g.gunit}}</span>
+						<a href="/cart/add{{g.id}}_1" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+				{% endfor %}
+			</ul>
+
+			<div class="pagenation">
+				<a href="#"><上一页</a>
+				<a href="#" class="active">1</a>
+				<a href="#">2</a>
+				<a href="#">3</a>
+				<a href="#">4</a>
+				<a href="#">5</a>
+				<a href="#">下一页></a>
+			</div>
+		</div>
+	</div>
+
+	<!--<div class="add_jump"></div>
+
+	<script type="text/javascript">
+		$(function () {
+
+			var $add_x = $('.add_goods').offset().top;
+			var $add_y = $('.add_goods').offset().left;
+
+			var $to_x = $('#show_count').offset().top;
+			var $to_y = $('#show_count').offset().left;
+
+			$(".add_jump").css({'left':$add_y+80,'top':$add_x+10,'display':'block'});
+			$('.add_goods').click(function(){
+			    // 验证是否登陆,若没有登陆则先返回登陆再购买
+				if($('.login_btn').text().indexOf('登录')>=0){
+			        alert('请先登录再加入购物车');
+					location.href='/user/login/';
+					return;
+				}
+				// 动画
+				$(".add_jump").stop().animate({
+					'left': $to_y+7,
+					'top': $to_x+7},
+					"fast", function() {
+						$(".add_jump").fadeOut('fast',function(){
+							$('#show_count').html(2);
+						});
+				});
+				//异步请求
+//				num=parseInt($('.num_show').val());
+				$.get('/cart/add'+$('#id').val()+'_1'+'/',function (data) {
+					$('#show_count').text(data.count);
+                })
+
+			});
+
+        })
+
+	</script>
+	-->
+
+{% endblock main_con %}
+
